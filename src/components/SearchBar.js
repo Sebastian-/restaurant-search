@@ -2,11 +2,16 @@ import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 
-const SearchBar = () => {
+const SearchBar = ({ query, onQueryChange }) => {
   return (
     <View style={styles.container}>
       <EvilIcons name="search" style={styles.icon} />
-      <TextInput placeholder="Search" style={styles.input} />
+      <TextInput
+        placeholder="Search"
+        style={styles.input}
+        value={query}
+        onChangeText={text => onQueryChange(text)}
+      />
     </View>
   );
 };
