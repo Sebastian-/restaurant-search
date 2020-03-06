@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 
-const SearchBar = ({ query, onQueryChange }) => {
+const SearchBar = ({ query, onQueryChange, onQuerySubmit }) => {
   return (
     <View style={styles.container}>
       <EvilIcons name="search" style={styles.icon} />
@@ -11,6 +11,7 @@ const SearchBar = ({ query, onQueryChange }) => {
         style={styles.input}
         value={query}
         onChangeText={text => onQueryChange(text)}
+        onSubmitEditing={() => onQuerySubmit()}
       />
     </View>
   );
