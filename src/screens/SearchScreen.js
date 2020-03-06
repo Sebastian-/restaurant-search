@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, FlatList, Text, ScrollView } from "react-native";
 import SearchBar from "../components/SearchBar";
 import yelp from "../api/yelp";
+import PriceResultList from "../components/PriceResultList";
 
 const SearchScreen = () => {
   const [query, setQuery] = useState("");
@@ -23,17 +24,40 @@ const SearchScreen = () => {
     search();
   }, []);
 
+  const filterByPrice = price => {
+    return businesses.filter(business => business.price === price);
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <SearchBar
         query={query}
         onQueryChange={query => setQuery(query)}
         onQuerySubmit={() => search()}
       />
+      <ScrollView>
+        <PriceResultList
+          title={"Budget Eats"}
+          businesses={filterByPrice("$")}
+        />
+        <PriceResultList title={"Average"} businesses={filterByPrice("$$")} />
+        <PriceResultList
+          title={"Gettin' Pricey"}
+          businesses={filterByPrice("$$$")}
+        />
+        <PriceResultList
+          title={"Once in a Blue Moon"}
+          businesses={filterByPrice("$$$$")}
+        />
+      </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
 
 export default SearchScreen;
